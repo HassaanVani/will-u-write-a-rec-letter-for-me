@@ -13,98 +13,126 @@ const SAMMY_CREDITS = [
     role: 'Aspiring Neuroscientist',
     achievement: 'Winner of the Brain Bee; successfully diagnosed Mr. Tymeson\'s physics-induced neural fatigue.',
     rating: 'Synaptic Elite (10/10)',
-    note: 'Has already mapped 80% of his own frontal lobe.'
+    note: 'Has already mapped 80% of his own frontal lobe.',
+    devRole: 'Brain Auditor',
+    devNote: 'Hassaan Vani (Helped Sammy locate the recommendation-signing lobe)'
   },
   {
     file: '1000043056.jpg',
     role: 'Physics Skeptic',
     achievement: 'Formally declared that thermodynamics is 100% less interesting than cellular mitosis.',
     rating: 'Gravity = Vibe (0/10)',
-    note: 'Stated F = ma is "fake news" and action potentials are the truth.'
+    note: 'Stated F = ma is "fake news" and action potentials are the truth.',
+    devRole: 'Thermo Guide',
+    devNote: 'Hassaan Vani (Convinced Sammy that gravity is at least partially real)'
   },
   {
     file: '1000050640.jpg',
     role: 'Biology Enthusiast',
     achievement: 'Can explain the electron transport chain backwards while asleep.',
     rating: 'Cell-Tastic (10/10)',
-    note: 'Will pick mitochondria over equations any day.'
+    note: 'Will pick mitochondria over equations any day.',
+    devRole: 'Cell Architect',
+    devNote: 'Hassaan Vani (Paid in 15.50 Israeli Shekels and a promise of AP Bio notes)'
   },
   {
     file: '1000054792.jpg',
     role: 'Self-Proclaimed Brahmin',
     achievement: 'Achieved ultimate cosmic enlightenment and coding nirvana in class.',
     rating: 'Pure Karma (10/10)',
-    note: 'Conducts spiritual calculations on physics worksheets.'
+    note: 'Conducts spiritual calculations on physics worksheets.',
+    devRole: 'Cosmic Liaison',
+    devNote: 'Hassaan Vani (Guided Sammy through CSS-driven spiritual transcendence)'
   },
   {
     file: '1000054793.jpg',
     role: 'Brain Bee Champion',
     achievement: 'Memorized the entire human nervous system just to win a trophy.',
     rating: 'Synaptic Gold',
-    note: 'Knows more cranial nerves than Mr. Tymeson knows formulas.'
+    note: 'Knows more cranial nerves than Mr. Tymeson knows formulas.',
+    devRole: 'Synapse Broker',
+    devNote: 'Hassaan Vani (Holding 95% equity of Sammy\'s college admissions)'
   },
   {
     file: '1000055686.jpg',
     role: 'Science Bowl Team Captain',
     achievement: 'Led the team under Mr. Tymeson\'s supervision; fastest buzzer fingers in the district.',
     rating: 'Buzz-Master (10/10)',
-    note: 'Answered a biology bonus question before the reader finished.'
+    note: 'Answered a biology bonus question before the reader finished.',
+    devRole: 'Buzzer Tech',
+    devNote: 'Hassaan Vani (Wrote the event loop to match Sammy\'s buzzer speed)'
   },
   {
     file: '1000070191.jpg',
     role: 'Eagle Boy Scout',
     achievement: 'Can start a campfire with two sticks, but prefers using his laptop to vibecode.',
     rating: 'Prepared for College',
-    note: 'Ready for any scenario (except a sudden physics pop quiz).'
+    note: 'Ready for any scenario (except a sudden physics pop quiz).',
+    devRole: 'Survival Advisor',
+    devNote: 'Hassaan Vani (Prepared Sammy\'s local host environment for internet deployment)'
   },
   {
     file: '1000073256.jpg',
     role: 'Speech & Debate Lead',
     achievement: 'Self-proclaimed master debator; successfully argued that biology is the superior science.',
     rating: 'Unmatched Rhetoric',
-    note: 'Could convince an examiner that friction doesn\'t exist.'
+    note: 'Could convince an examiner that friction doesn\'t exist.',
+    devRole: 'Rhetorical Coach',
+    devNote: 'Hassaan Vani (Argued that 4 Shekels is a fair wage for this site design)'
   },
   {
     file: '1000073715.jpg',
     role: 'Lead Vibecoder',
     achievement: 'Wrote this entire interactive website using vibes, feelings, and absolute confidence.',
     rating: '11/10 Vibe Check',
-    note: 'Does not debug; simply reframes the compiler\'s reality.'
+    note: 'Does not debug; simply reframes the compiler\'s reality.',
+    devRole: 'Tech Consultant',
+    devNote: 'Hassaan Vani (Figured out Netlify configurations when Claude bailed on him)'
   },
   {
     file: '1000073758.jpg',
     role: 'AP Physics Survivor',
     achievement: 'Survived class lectures by converting kinematic vectors into biological pathways.',
     rating: 'High Resilience',
-    note: 'Please do not include block-on-inclined-plane questions on the letter.'
+    note: 'Please do not include block-on-inclined-plane questions on the letter.',
+    devRole: 'Vector Engineer',
+    devNote: 'Hassaan Vani (Drafted the vector pathways to bypass Mr. Tymeson\'s exams)'
   },
   {
     file: '1000074512.jpg',
     role: 'Synapse Sculptor',
     achievement: 'Demonstrated that reviewing photos of Sammy increases AP physics pass rates.',
     rating: 'High Dopamine Signal',
-    note: 'The data is conclusive: Sammy is college-ready.'
+    note: 'The data is conclusive: Sammy is college-ready.',
+    devRole: 'Confetti Lead',
+    devNote: 'Hassaan Vani (Designed the confetti sequence to stimulate grading reflexes)'
   },
   {
     file: 'IMG_5282.jpg',
     role: 'Debate Tactician',
     achievement: 'Won three straight tournament rounds using neuro-linguistic biology trivia.',
     rating: 'Master Debator',
-    note: 'Arguments travel faster than a myelinated axon.'
+    note: 'Arguments travel faster than a myelinated axon.',
+    devRole: 'Debate Subcontractor',
+    devNote: 'Hassaan Vani (Wrote the logical scripts Sammy used to win round 3)'
   },
   {
     file: 'IMG_8286.jpg',
     role: 'Science Bowl MVP',
     achievement: 'Scored 120 points on biology tossups while ignoring Mr. Tymeson\'s kinematics hints.',
     rating: 'AP Star (10/10)',
-    note: 'Mr. Tymeson\'s proudest Science Bowl supervision asset.'
+    note: 'Mr. Tymeson\'s proudest Science Bowl supervision asset.',
+    devRole: 'AP Coordinator',
+    devNote: 'Hassaan Vani (Filtered out physics constants from Sammy\'s memory banks)'
   },
   {
     file: 'IMG_8782.jpg',
     role: 'Ultimate Candidate',
     achievement: 'Created a custom React site with cursor-dodging logic to secure the recommendation.',
     rating: 'Rec Level: Maxed',
-    note: 'Mr. Tymeson, your digital pen is required. Please sign below!'
+    note: 'Mr. Tymeson, your digital pen is required. Please sign below!',
+    devRole: 'Lead Architect',
+    devNote: 'Hassaan Vani (Subcontracted under the table to bypass the AP teacher approval gate)'
   }
 ];
 
@@ -295,15 +323,9 @@ export const SuccessScreen: React.FC<SuccessScreenProps> = ({ onRestart }) => {
                     </span>
                   </div>
                   <div className="credits-row" style={{ marginTop: '0.65rem', borderTop: '1px solid rgba(255, 255, 255, 0.1)', paddingTop: '0.65rem' }}>
-                    <span className="credits-label" style={{ fontSize: '0.65rem' }}>Co-Founder:</span>
+                    <span className="credits-label" style={{ fontSize: '0.65rem' }}>{spotlight.devRole}:</span>
                     <span className="credits-value" style={{ fontSize: '0.8rem', color: '#c59b27' }}>
-                      Hassaan Vani (Holding 95% equity of Sammy's college admissions)
-                    </span>
-                  </div>
-                  <div className="credits-row">
-                    <span className="credits-label" style={{ fontSize: '0.65rem' }}>Architect:</span>
-                    <span className="credits-value" style={{ fontSize: '0.8rem', color: 'rgba(255, 255, 255, 0.6)' }}>
-                      Hassaan Vani (Paid in 15.50 Israeli Shekels and a promise of AP Bio notes)
+                      {spotlight.devNote}
                     </span>
                   </div>
                 </div>
