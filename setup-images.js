@@ -15,7 +15,7 @@ if (!fs.existsSync(destDir)) {
 }
 
 if (!fs.existsSync(sourceDir)) {
-  console.error(`Source directory "${sourceDir}" not found! Make sure you are running this from the root of the repository.`);
+  console.error(`Source directory "${sourceDir}" not found!`);
   process.exit(1);
 }
 
@@ -34,23 +34,23 @@ for (const file of files) {
   const destFileName = `${baseName}.jpg`;
   const destPath = path.join(destDir, destFileName);
 
-  console.log(`Processing: ${file}...`);
+  console.log(`Processing and compressing: ${file}...`);
 
   if (ext === '.heic') {
     try {
-      console.log(`Converting HEIC to JPG via sips: "${file}" -> "${destFileName}"`);
-      execSync(`sips -s format jpeg "${srcPath}" --out "${destPath}"`, { stdio: 'ignore' });
+      console.log(`Converting & resizing HEIC via sips: "${file}" -> "${destFileName}" (640px width)`);
+      execSync(`sips -s format jpeg --resampleWidth 640 "${srcPath}" --out "${destPath}"`, { stdio: 'ignore' });
       processedImages.push(destFileName);
     } catch (err) {
-      console.error(`Failed to convert ${file}:`, err.message);
+      console.error(`Failed to convert/resize ${file}:`, err.message);
     }
   } else if (ext === '.jpg' || ext === '.jpeg' || ext === '.png') {
     try {
-      fs.copyFileSync(srcPath, destPath);
-      console.log(`Copied: "${file}" -> "${destFileName}"`);
+      console.log(`Resizing image via sips: "${file}" -> "${destFileName}" (640px width)`);
+      execSync(`sips --resampleWidth 640 "${srcPath}" --out "${destPath}"`, { stdio: 'ignore' });
       processedImages.push(destFileName);
     } catch (err) {
-      console.error(`Failed to copy ${file}:`, err.message);
+      console.error(`Failed to resize ${file}:`, err.message);
     }
   } else {
     console.log(`Skipping unknown file format: ${file}`);
@@ -58,6 +58,4 @@ for (const file of files) {
 }
 
 console.log('\n--- Processing complete! ---');
-console.log(`Successfully prepared ${processedImages.length} images in "public/sammy/".`);
-console.log('List of images to use in the code:');
-console.log(JSON.stringify(processedImages, null, 2));
+console.log(`Successfully prepared and compressed ${processedImages.length} images in "public/sammy/".`);

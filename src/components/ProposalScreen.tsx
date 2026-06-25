@@ -27,38 +27,46 @@ export const ProposalScreen: React.FC<ProposalScreenProps> = ({ onAccept }) => {
   const [noPosition, setNoPosition] = useState({ x: 0, y: 0 });
   const [showBadge, setShowBadge] = useState(true);
   
-  const containerRef = useRef<HTMLDivElement>(null);
   const noButtonRef = useRef<HTMLButtonElement>(null);
 
-  // Position "No" button relative/inline initially, then switch to absolute/fixed after first hover
   const moveNoButton = (clientX?: number, clientY?: number) => {
     if (!noButtonRef.current) return;
 
-    const btnWidth = noButtonRef.current.offsetWidth || 100;
-    const btnHeight = noButtonRef.current.offsetHeight || 40;
+    const btnWidth = noButtonRef.current.offsetWidth || 110;
+    const btnHeight = noButtonRef.current.offsetHeight || 45;
     
-    // Use window coordinates for safety bounds
-    const maxX = window.innerWidth - btnWidth - 40;
-    const maxY = window.innerHeight - btnHeight - 40;
+    // Bounds with a safe margin from the viewport edges
+    const padding = 60;
+    const maxX = window.innerWidth - btnWidth - padding;
+    const maxY = window.innerHeight - btnHeight - padding;
 
-    let newX = 0;
-    let newY = 0;
+    let newX = padding;
+    let newY = padding;
     let attempts = 0;
-    const minDistance = 180; // Min distance from mouse in pixels
+    const minDistance = 160; // Safe distance from cursor/tap
 
     do {
-      newX = Math.max(20, Math.random() * maxX);
-      newY = Math.max(20, Math.random() * maxY);
+      if (maxX > padding) {
+        newX = padding + Math.random() * (maxX - padding);
+      } else {
+        newX = padding;
+      }
+
+      if (maxY > padding) {
+        newY = padding + Math.random() * (maxY - padding);
+      } else {
+        newY = padding;
+      }
+
       attempts++;
       
-      // If we have mouse coordinates, make sure the new spot is far enough away
       if (clientX !== undefined && clientY !== undefined) {
         const dist = Math.hypot(newX + btnWidth / 2 - clientX, newY + btnHeight / 2 - clientY);
         if (dist > minDistance) break;
       } else {
         break;
       }
-    } while (attempts < 15);
+    } while (attempts < 20);
 
     setNoPosition({ x: newX, y: newY });
     setHasMoved(true);
@@ -76,14 +84,13 @@ export const ProposalScreen: React.FC<ProposalScreenProps> = ({ onAccept }) => {
     }
   };
 
-  // Close badge click handler
   const handleCloseBadge = (e: React.MouseEvent) => {
     e.stopPropagation();
     setShowBadge(false);
   };
 
   return (
-    <div ref={containerRef} className="screen-container">
+    <div className="screen-container">
       <div className="proposal-wrapper">
         <div className="top-tagline">A very important question</div>
         <h1 className="proposal-heading">
@@ -100,14 +107,12 @@ export const ProposalScreen: React.FC<ProposalScreenProps> = ({ onAccept }) => {
           
           <button
             ref={noButtonRef}
-            className="btn btn-no"
+            className={`btn btn-no ${hasMoved ? 'dodging' : ''}`}
             style={
               hasMoved
                 ? {
-                    position: 'fixed',
                     left: `${noPosition.x}px`,
                     top: `${noPosition.y}px`,
-                    transition: 'left 0.15s ease-out, top 0.15s ease-out',
                   }
                 : {}
             }
@@ -126,7 +131,7 @@ export const ProposalScreen: React.FC<ProposalScreenProps> = ({ onAccept }) => {
 
       {showBadge && (
         <div className="antigravity-badge" onClick={() => window.open('https://github.com/google-deepmind', '_blank')}>
-          <Sparkles size={11} className="sparkle-icon" style={{ color: 'var(--primary-pink)' }} />
+          <Sparkles size={11} className="sparkle-icon" style={{ color: 'var(--accent-gold)' }} />
           <span>Edit with Antigravity</span>
           <button className="antigravity-close" onClick={handleCloseBadge}>
             <X size={8} />
