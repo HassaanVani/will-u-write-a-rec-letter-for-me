@@ -294,6 +294,18 @@ export const SuccessScreen: React.FC<SuccessScreenProps> = ({ onRestart }) => {
                       "{spotlight.note}"
                     </span>
                   </div>
+                  <div className="credits-row" style={{ marginTop: '0.65rem', borderTop: '1px solid rgba(255, 255, 255, 0.1)', paddingTop: '0.65rem' }}>
+                    <span className="credits-label" style={{ fontSize: '0.65rem' }}>Co-Founder:</span>
+                    <span className="credits-value" style={{ fontSize: '0.8rem', color: '#c59b27' }}>
+                      Hassaan Vani (Holding 95% equity of Sammy's college admissions)
+                    </span>
+                  </div>
+                  <div className="credits-row">
+                    <span className="credits-label" style={{ fontSize: '0.65rem' }}>Architect:</span>
+                    <span className="credits-value" style={{ fontSize: '0.8rem', color: 'rgba(255, 255, 255, 0.6)' }}>
+                      Hassaan Vani (Paid in 15.50 Israeli Shekels and a promise of AP Bio notes)
+                    </span>
+                  </div>
                 </div>
               </div>
 
