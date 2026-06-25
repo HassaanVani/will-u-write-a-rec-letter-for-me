@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import confetti from 'canvas-confetti';
 import { RefreshCw, RotateCcw, X, Star } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Teacher } from '../App';
 
 interface SuccessScreenProps {
+  teacher: Teacher;
   onRestart: () => void;
 }
 
-const SAMMY_CREDITS = [
+const TYMESON_CREDITS = [
   {
     file: '1000035741.jpg',
     role: 'Aspiring Neuroscientist',
@@ -136,15 +138,296 @@ const SAMMY_CREDITS = [
   }
 ];
 
-export const SuccessScreen: React.FC<SuccessScreenProps> = ({ onRestart }) => {
-  // Spotlight photo structure
-  const [spotlight, setSpotlight] = useState<typeof SAMMY_CREDITS[number] & { isManual?: boolean } | null>(null);
+const KINSELLA_CREDITS = [
+  {
+    file: '1000035741.jpg',
+    role: 'Aspiring Neuroscientist',
+    achievement: 'Brain Bee winner; mapped the exact neurological pathway of starting a club and ghosting it.',
+    rating: 'Highly Myelinated (10/10)',
+    note: 'Believes biology is supreme, chemistry is secondary, and physics is irrelevant.',
+    devRole: 'Brain Auditor',
+    devNote: 'Hassaan Vani (Helped Sammy locate the recommendation-signing lobe)'
+  },
+  {
+    file: '1000043056.jpg',
+    role: 'Chemistry Buff',
+    achievement: 'Self-declared chemistry enthusiast (specifically because chemistry is 100% better than physics).',
+    rating: 'Exothermic (10/10)',
+    note: 'Covalent bonds and redox calculations are his comfort zones.',
+    devRole: 'Thermo Guide',
+    devNote: 'Hassaan Vani (Convinced Sammy that gravity is at least partially real)'
+  },
+  {
+    file: '1000050640.jpg',
+    role: 'Red Cross Co-Founder',
+    achievement: 'Successfully co-founded the American Red Cross Club (and successfully never showed up again).',
+    rating: 'Ghost Protocol (11/10)',
+    note: 'His ability to start clubs is only matched by his ability to vanish from them.',
+    devRole: 'Cell Architect',
+    devNote: 'Hassaan Vani (Paid in 15.50 Israeli Shekels and a promise of AP Bio notes)'
+  },
+  {
+    file: '1000054792.jpg',
+    role: 'Red Cross Leader',
+    achievement: 'Pioneered the art of phantom club leadership; master of administrative non-existence.',
+    rating: 'Silent Partner',
+    note: 'Keeps the club running smoothly by staying entirely out of the picture.',
+    devRole: 'Cosmic Liaison',
+    devNote: 'Hassaan Vani (Guided Sammy through CSS-driven spiritual transcendence)'
+  },
+  {
+    file: '1000054793.jpg',
+    role: 'Brain Bee Champion',
+    achievement: 'Memorized all chemical synapse pathways just to show off during Science Bowl rounds.',
+    rating: 'Synaptic Master',
+    note: 'Mental horsepower is off the charts.',
+    devRole: 'Synapse Broker',
+    devNote: 'Hassaan Vani (Holding 95% equity of Sammy\'s college admissions)'
+  },
+  {
+    file: '1000055686.jpg',
+    role: 'Science Bowl Captain',
+    achievement: 'Led the team in AP Chemistry and Biology tossups with incredibly fast buzzer reflexes.',
+    rating: 'AP Chem King',
+    note: 'Can recall molecular weight calculations in under 0.2 seconds.',
+    devRole: 'Buzzer Tech',
+    devNote: 'Hassaan Vani (Wrote the event loop to match Sammy\'s buzzer speed)'
+  },
+  {
+    file: '1000070191.jpg',
+    role: 'Self-Proclaimed Brahmin',
+    achievement: 'Achieved spiritual synthesis between molecular chemistry and bio-transcendence.',
+    rating: 'Zen Master (10/10)',
+    note: 'Maintains absolute calm during chemical reaction worksheets.',
+    devRole: 'Survival Advisor',
+    devNote: 'Hassaan Vani (Prepared Sammy\'s local host environment for internet deployment)'
+  },
+  {
+    file: '1000073256.jpg',
+    role: 'Eagle Boy Scout',
+    achievement: 'Knows how to treat chemical burns in the wild, though prefers staying in the lab.',
+    rating: 'Prepared (10/10)',
+    note: 'Always ready to learn, especially when biology is involved.',
+    devRole: 'Wilderness Guide',
+    devNote: 'Hassaan Vani (Drafted the vector pathways to bypass exams)'
+  },
+  {
+    file: '1000073715.jpg',
+    role: 'Speech & Debate Lead',
+    achievement: 'Self-proclaimed master debator; successfully argued that biology is the supreme science.',
+    rating: 'Unmatched Rhetoric',
+    note: 'Could convince a beaker of water that it is actually buffer solution.',
+    devRole: 'Rhetorical Coach',
+    devNote: 'Hassaan Vani (Argued that 4 Shekels is a fair wage for this site design)'
+  },
+  {
+    file: '1000073758.jpg',
+    role: 'Lead Vibecoder',
+    achievement: 'Vibecoded the Red Cross email list (before abandoning the email list entirely).',
+    rating: '11/10 Vibe Check',
+    note: 'Does not debug; simply reframes the club\'s administration.',
+    devRole: 'Tech Consultant',
+    devNote: 'Hassaan Vani (Figured out Netlify configurations when Claude bailed on him)'
+  },
+  {
+    file: '1000074512.jpg',
+    role: 'AP Chem Survivor',
+    achievement: 'Survived redox titration labs without breaking more than three beakers.',
+    rating: 'Lab Hazard: Low',
+    note: 'Highly capable lab partner (as long as he doesn\'t ghost you).',
+    devRole: 'Safety Officer',
+    devNote: 'Hassaan Vani (Designed the confetti sequence to stimulate grading reflexes)'
+  },
+  {
+    file: 'IMG_5282.jpg',
+    role: 'Debate Tactician',
+    achievement: 'Debated the stoichiometry of cellular respiration for 45 minutes straight.',
+    rating: 'Debate Champion',
+    note: 'Argues with the speed and force of an exothermic reaction.',
+    devRole: 'Debate Subcontractor',
+    devNote: 'Hassaan Vani (Wrote the logical scripts Sammy used to win round 3)'
+  },
+  {
+    file: 'IMG_8286.jpg',
+    role: 'Science Bowl MVP',
+    achievement: 'Buzzed in on multiple AP Chem questions while thinking about biology.',
+    rating: 'Pure Genius',
+    note: 'Ms. Kinsella\'s proudest Science Bowl supervision asset.',
+    devRole: 'AP Coordinator',
+    devNote: 'Hassaan Vani (Filtered out physics constants from Sammy\'s memory banks)'
+  },
+  {
+    file: 'IMG_8782.jpg',
+    role: 'Ultimate Candidate',
+    achievement: 'Created a custom Chem LOR request site to bypass standard email channels.',
+    rating: 'Rec Level: Maxed',
+    note: 'Ms. Kinsella, your digital signature is highly recommended.',
+    devRole: 'Lead Architect',
+    devNote: 'Hassaan Vani (Subcontracted under the table to bypass the AP teacher approval gate)'
+  }
+];
+
+const BAIN_CREDITS = [
+  {
+    file: '1000035741.jpg',
+    role: 'Aspiring Neuroscientist',
+    achievement: 'Brain Bee Winner; applying neurological principles to analyze Abraham Lincoln\'s stress levels.',
+    rating: 'Brainy Historian',
+    note: 'Determined that history is just action potentials repeating themselves over time.',
+    devRole: 'Brain Auditor',
+    devNote: 'Hassaan Vani (Helped Sammy locate the recommendation-signing lobe)'
+  },
+  {
+    file: '1000043056.jpg',
+    role: 'Humanities Desperado',
+    achievement: 'In desperate search of a humanities LOR to prove he is not a biological machine.',
+    rating: 'Desperate (10/10)',
+    note: 'Will write essays about the Gilded Age in exchange for a signed letter.',
+    devRole: 'Thermo Guide',
+    devNote: 'Hassaan Vani (Convinced Sammy that gravity is at least partially real)'
+  },
+  {
+    file: '1000050640.jpg',
+    role: 'Jewish APUSH Representative',
+    achievement: 'Self-certified cultural ambassador of the APUSH classroom.',
+    rating: 'Shalom (10/10)',
+    note: 'Brings excellent cultural vibes and historical debates to class.',
+    devRole: 'Cell Architect',
+    devNote: 'Hassaan Vani (Paid in 15.50 Israeli Shekels and a promise of AP Bio notes)'
+  },
+  {
+    file: '1000054792.jpg',
+    role: 'APUSH Scholar',
+    achievement: 'Can explain the causes of the War of 1812, but prefers discussing neural synapses.',
+    rating: 'Historian (10/10)',
+    note: 'Has read the entire textbook (or at least the biological highlights).',
+    devRole: 'Cosmic Liaison',
+    devNote: 'Hassaan Vani (Guided Sammy through CSS-driven spiritual transcendence)'
+  },
+  {
+    file: '1000054793.jpg',
+    role: 'Brain Bee Champion',
+    achievement: 'Memorized all historical dates and human cranial nerves simultaneously.',
+    rating: 'Infinite IQ',
+    note: 'Combines biology and history for ultimate cognitive efficiency.',
+    devRole: 'Synapse Broker',
+    devNote: 'Hassaan Vani (Holding 95% equity of Sammy\'s college admissions)'
+  },
+  {
+    file: '1000055686.jpg',
+    role: 'Science Bowl Captain',
+    achievement: 'Led the team in historical trivia questions (completely by accident).',
+    rating: 'Buzz-Master (10/10)',
+    note: 'Fastest buzzer fingers on the US Constitution.',
+    devRole: 'Buzzer Tech',
+    devNote: 'Hassaan Vani (Wrote the event loop to match Sammy\'s buzzer speed)'
+  },
+  {
+    file: '1000070191.jpg',
+    role: 'Self-Proclaimed Brahmin',
+    achievement: 'Achieved spiritual synthesis between the Gilded Age and biology.',
+    rating: 'Zen Master (10/10)',
+    note: 'Keeps calm even when the history DBQ prompts are absolutely wild.',
+    devRole: 'Survival Advisor',
+    devNote: 'Hassaan Vani (Prepared Sammy\'s local host environment for internet deployment)'
+  },
+  {
+    file: '1000073256.jpg',
+    role: 'Eagle Boy Scout',
+    achievement: 'Knows how to survive in historical wilderness conditions.',
+    rating: 'Prepared (10/10)',
+    note: 'Always ready to study the past to understand the future.',
+    devRole: 'Wilderness Guide',
+    devNote: 'Hassaan Vani (Drafted the vector pathways to bypass exams)'
+  },
+  {
+    file: '1000073715.jpg',
+    role: 'Speech & Debate Lead',
+    achievement: 'Self-proclaimed master debator; argued that US history was driven by biology.',
+    rating: 'Unmatched Rhetoric',
+    note: 'Could debate Thomas Jefferson out of the Declaration of Independence.',
+    devRole: 'Rhetorical Coach',
+    devNote: 'Hassaan Vani (Argued that 4 Shekels is a fair wage for this site design)'
+  },
+  {
+    file: '1000073758.jpg',
+    role: 'Lead Vibecoder',
+    achievement: 'Vibecoded a historical spreadsheet for APUSH projects.',
+    rating: '11/10 Vibe Check',
+    note: 'Does not edit history; simply reframes the events.',
+    devRole: 'Tech Consultant',
+    devNote: 'Hassaan Vani (Figured out Netlify configurations when Claude bailed on him)'
+  },
+  {
+    file: '1000074512.jpg',
+    role: 'APUSH Survivor',
+    achievement: 'Survived Mr. Bain\'s lectures without falling asleep once (mostly).',
+    rating: 'High Focus',
+    note: 'Highly capable history student when motivated by college apps.',
+    devRole: 'Safety Officer',
+    devNote: 'Hassaan Vani (Designed the confetti sequence to stimulate grading reflexes)'
+  },
+  {
+    file: 'IMG_5282.jpg',
+    role: 'Debate Tactician',
+    achievement: 'Debated the Federalist Papers using neurobiology trivia.',
+    rating: 'Debate Champion',
+    note: 'His arguments travel faster than a steam train.',
+    devRole: 'Debate Subcontractor',
+    devNote: 'Hassaan Vani (Wrote the logical scripts Sammy used to win round 3)'
+  },
+  {
+    file: 'IMG_8286.jpg',
+    role: 'History Revisionist',
+    achievement: 'Argued that the Industrial Revolution was just an action potential at scale.',
+    rating: 'AP Star (10/10)',
+    note: 'Mr. Bain\'s proudest Science Bowl MVP.',
+    devRole: 'AP Coordinator',
+    devNote: 'Hassaan Vani (Filtered out physics constants from Sammy\'s memory banks)'
+  },
+  {
+    file: 'IMG_8782.jpg',
+    role: 'Desperate LOR Seeker',
+    achievement: 'Created a custom APUSH website with cursor-dodging code to secure the humanities LOR.',
+    rating: 'Rec Level: Maxed',
+    note: 'Mr. Bain, please sign the letter of rec, his apps are cooked without it.',
+    devRole: 'Lead Architect',
+    devNote: 'Hassaan Vani (Subcontracted under the table to bypass the AP teacher approval gate)'
+  }
+];
+
+export const SuccessScreen: React.FC<SuccessScreenProps> = ({ teacher, onRestart }) => {
+  // Select active credits database
+  const getCreditsDatabase = () => {
+    switch (teacher) {
+      case 'kinsella':
+        return KINSELLA_CREDITS;
+      case 'bain':
+        return BAIN_CREDITS;
+      case 'tymeson':
+      default:
+        return TYMESON_CREDITS;
+    }
+  };
+
+  const activeCredits = getCreditsDatabase();
+
+  const [spotlight, setSpotlight] = useState<typeof TYMESON_CREDITS[number] & { isManual?: boolean } | null>(null);
   const [isPaused, setIsPaused] = useState(false);
 
 
   // Divide images into two separate lists for the dual scrolling reels
-  const row1Photos = SAMMY_CREDITS.slice(0, 7);
-  const row2Photos = SAMMY_CREDITS.slice(7);
+  const row1Photos = activeCredits.slice(0, 7);
+  const row2Photos = activeCredits.slice(7);
+
+  // Ensure body theme classes are applied when success screen loads
+  useEffect(() => {
+    document.body.classList.remove('theme-tymeson', 'theme-kinsella', 'theme-bain');
+    document.body.classList.add(`theme-${teacher}`);
+    return () => {
+      document.body.classList.remove(`theme-${teacher}`);
+    };
+  }, [teacher]);
 
   // Initial big confetti explosion on mount
   useEffect(() => {
@@ -154,7 +437,7 @@ export const SuccessScreen: React.FC<SuccessScreenProps> = ({ onRestart }) => {
       origin: { y: 0.6 },
       colors: ['#c59b27', '#e9c46a', '#15305b', '#ffffff']
     });
-  }, []);
+  }, [teacher]);
 
   // Automated cinematic spotlight cycles
   useEffect(() => {
@@ -162,7 +445,7 @@ export const SuccessScreen: React.FC<SuccessScreenProps> = ({ onRestart }) => {
 
     const timer = setInterval(() => {
       // Pick a random photo to spotlight
-      const randomItem = SAMMY_CREDITS[Math.floor(Math.random() * SAMMY_CREDITS.length)];
+      const randomItem = activeCredits[Math.floor(Math.random() * activeCredits.length)];
       setSpotlight({ ...randomItem, isManual: false });
       setIsPaused(true);
 
@@ -179,7 +462,7 @@ export const SuccessScreen: React.FC<SuccessScreenProps> = ({ onRestart }) => {
     }, 4500); // Cycle every 4.5 seconds
 
     return () => clearInterval(timer);
-  }, [spotlight]);
+  }, [spotlight, activeCredits]);
 
   // Trigger golden confetti every time a new slide enters the spotlight
   useEffect(() => {
@@ -193,7 +476,7 @@ export const SuccessScreen: React.FC<SuccessScreenProps> = ({ onRestart }) => {
     }
   }, [spotlight?.file]);
 
-  const handleSlideClick = (photo: typeof SAMMY_CREDITS[number]) => {
+  const handleSlideClick = (photo: typeof TYMESON_CREDITS[number]) => {
     setSpotlight({ ...photo, isManual: true });
     setIsPaused(true);
   };
@@ -204,24 +487,58 @@ export const SuccessScreen: React.FC<SuccessScreenProps> = ({ onRestart }) => {
   };
 
   const handleForceSpotlight = () => {
-    const randomItem = SAMMY_CREDITS[Math.floor(Math.random() * SAMMY_CREDITS.length)];
+    const randomItem = activeCredits[Math.floor(Math.random() * activeCredits.length)];
     setSpotlight({ ...randomItem, isManual: true });
     setIsPaused(true);
+  };
+
+  // Header content customized for active teacher
+  const getHeaderTitle = () => {
+    switch (teacher) {
+      case 'kinsella':
+        return (
+          <h1>
+            THANK YOU! - <span>Sammy</span> 🍀
+          </h1>
+        );
+      case 'bain':
+        return (
+          <h1>
+            THANK YOU! - <span>Sammy</span> 📜
+          </h1>
+        );
+      case 'tymeson':
+      default:
+        return (
+          <h1>
+            THANK YOU! - <span>Sammy</span> 🎓
+          </h1>
+        );
+    }
+  };
+
+  const getHeaderSubtitle = () => {
+    switch (teacher) {
+      case 'kinsella':
+        return "A chemical equation of your future star student (who definitely did not ghost Red Cross).";
+      case 'bain':
+        return "A historic declaration of your future star student (who desperately needs this LOR).";
+      case 'tymeson':
+      default:
+        return "A cinematic credits reel of your future star student. Click any slide to pause and spotlight.";
+    }
   };
 
   return (
     <div className="screen-container success-screen">
       <div className="success-header-cinematic">
-        <h1>
-          THANK YOU! - <span>Sammy</span> 🎓
-        </h1>
-        <p>A cinematic credits reel of your future star student. Click any slide to pause and spotlight.</p>
+        {getHeaderTitle()}
+        <p>{getHeaderSubtitle()}</p>
       </div>
 
       <div className={`filmstrip-reels-container ${isPaused ? 'reels-paused' : ''}`}>
         {/* Row 1: Left to Right */}
         <div className="filmstrip-row scroll-ltr">
-          {/* Double list for seamless looping infinite scroll */}
           {[...row1Photos, ...row1Photos].map((photo, idx) => (
             <div
               key={`row1-${photo.file}-${idx}`}

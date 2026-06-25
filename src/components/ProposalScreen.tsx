@@ -1,7 +1,9 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Sparkles, X } from 'lucide-react';
+import { Teacher } from '../App';
 
 interface ProposalScreenProps {
+  teacher: Teacher;
   onAccept: () => void;
 }
 
@@ -21,13 +23,24 @@ const NO_MESSAGES = [
   "Give up! 😉"
 ];
 
-export const ProposalScreen: React.FC<ProposalScreenProps> = ({ onAccept }) => {
+export const ProposalScreen: React.FC<ProposalScreenProps> = ({ teacher, onAccept }) => {
   const [noIndex, setNoIndex] = useState(0);
   const [hasMoved, setHasMoved] = useState(false);
   const [noPosition, setNoPosition] = useState({ x: 0, y: 0 });
   const [showBadge, setShowBadge] = useState(true);
   
   const noButtonRef = useRef<HTMLButtonElement>(null);
+
+  // Set the body theme class dynamically on mount/change
+  useEffect(() => {
+    document.body.classList.remove('theme-tymeson', 'theme-kinsella', 'theme-bain');
+    document.body.classList.add(`theme-${teacher}`);
+    
+    // Cleanup if component unmounts
+    return () => {
+      document.body.classList.remove(`theme-${teacher}`);
+    };
+  }, [teacher]);
 
   const moveNoButton = (clientX?: number, clientY?: number) => {
     if (!noButtonRef.current) return;
@@ -89,16 +102,49 @@ export const ProposalScreen: React.FC<ProposalScreenProps> = ({ onAccept }) => {
     setShowBadge(false);
   };
 
+  // Content customizer based on the teacher
+  const getHeading = () => {
+    switch (teacher) {
+      case 'kinsella':
+        return (
+          <h1 className="proposal-heading">
+            Will you write a <span>letter of rec</span> for me Ms. Kinsella?
+          </h1>
+        );
+      case 'bain':
+        return (
+          <h1 className="proposal-heading">
+            Will you write a <span>letter of rec</span> for me Mr. Bain?
+          </h1>
+        );
+      case 'tymeson':
+      default:
+        return (
+          <h1 className="proposal-heading">
+            Will you write a <span>letter of rec</span> for me Mr. Tymeson?
+          </h1>
+        );
+    }
+  };
+
+  const getSubtitle = () => {
+    switch (teacher) {
+      case 'kinsella':
+        return "Take your time. Choose carefully. Red Cross Club signups are pending.";
+      case 'bain':
+        return "Please. I am desperate. I need a humanities LOR or my college apps are cooked.";
+      case 'tymeson':
+      default:
+        return "Take your time. Choose carefully. There is definitely a right answer.";
+    }
+  };
+
   return (
     <div className="screen-container">
       <div className="proposal-wrapper">
         <div className="top-tagline">A very important question</div>
-        <h1 className="proposal-heading">
-          Will you write a <span>letter of rec</span> for me Mr. Tymeson?
-        </h1>
-        <p className="proposal-subtitle">
-          Take your time. Choose carefully. There is definitely a right answer.
-        </p>
+        {getHeading()}
+        <p className="proposal-subtitle">{getSubtitle()}</p>
 
         <div className="button-container">
           <button className="btn btn-yes" onClick={onAccept}>
