@@ -63,6 +63,23 @@
   --text-muted: #794d54;
 }
 
+.theme-renaldi {
+  /* Mrs. Renaldi - Royal Purple & Gold */
+  --bg-gradient: radial-gradient(circle at 50% 50%, #f6f1fa 0%, #f0e2fc 50%, #e3ccf8 100%);
+  --bg-gradient-success: radial-gradient(circle at 50% 50%, #20053d 0%, #110223 60%, #05000b 100%);
+  --primary-navy: #4a1078;
+  --primary-navy-hover: #310554;
+  --primary-navy-glow: rgba(74, 16, 120, 0.25);
+  --accent-gold: #e5b83b;
+  --accent-gold-hover: #c49925;
+  --accent-gold-glow: rgba(229, 184, 59, 0.4);
+  --btn-no-bg: #f7f2fb;
+  --btn-no-text: #4c1a75;
+  --btn-no-border: #e3d1f5;
+  --text-dark: #1b072c;
+  --text-muted: #5e4773;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -292,6 +309,11 @@ h1, h2, h3, h4 {
   color: var(--primary-navy);
 }
 
+.theme-renaldi .antigravity-badge {
+  border-color: rgba(74, 16, 120, 0.1);
+  color: var(--primary-navy);
+}
+
 .antigravity-badge:hover {
   background: white;
   transform: translateY(-1px);
@@ -421,6 +443,10 @@ h1, h2, h3, h4 {
   background: #25060b;
 }
 
+.theme-renaldi .film-slide {
+  background: #1d0333;
+}
+
 .film-slide:hover {
   transform: scale(1.08) rotate(2deg);
   border-color: var(--accent-gold);
@@ -513,6 +539,10 @@ h1, h2, h3, h4 {
 
 .theme-bain .spotlight-slide {
   background: #25060b;
+}
+
+.theme-renaldi .spotlight-slide {
+  background: #1d0333;
 }
 
 @media (max-width: 600px) {
@@ -633,6 +663,10 @@ h1, h2, h3, h4 {
 
 .theme-bain .btn-cinematic {
   background: rgba(92, 6, 23, 0.3);
+}
+
+.theme-renaldi .btn-cinematic {
+  background: rgba(74, 16, 120, 0.3);
 }
 
 .btn-cinematic:hover {

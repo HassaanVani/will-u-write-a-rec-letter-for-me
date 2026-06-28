@@ -2,12 +2,13 @@ import { useState, useEffect } from 'react';
 import { ProposalScreen } from './components/ProposalScreen';
 import { SuccessScreen } from './components/SuccessScreen';
 
-export type Teacher = 'tymeson' | 'kinsella' | 'bain';
+export type Teacher = 'tymeson' | 'kinsella' | 'bain' | 'renaldi';
 
 const getRoute = (): Teacher => {
   const path = window.location.pathname.toLowerCase();
   if (path === '/kinsella') return 'kinsella';
   if (path === '/bain') return 'bain';
+  if (path === '/renaldi') return 'renaldi';
   return 'tymeson'; // Default path fallback
 };
 

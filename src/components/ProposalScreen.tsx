@@ -117,6 +117,12 @@ export const ProposalScreen: React.FC<ProposalScreenProps> = ({ teacher, onAccep
             Will you write a <span>letter of rec</span> for me Mr. Bain?
           </h1>
         );
+      case 'renaldi':
+        return (
+          <h1 className="proposal-heading">
+            Will you write a <span>letter of rec</span> for me Mrs. Renaldi?
+          </h1>
+        );
       case 'tymeson':
       default:
         return (
@@ -133,6 +139,8 @@ export const ProposalScreen: React.FC<ProposalScreenProps> = ({ teacher, onAccep
         return "Take your time. Choose carefully. Red Cross Club signups are pending.";
       case 'bain':
         return "Please. I am desperate. I need a humanities LOR or my college apps are cooked.";
+      case 'renaldi':
+        return "Please. I need a debate supervisor and LOR champion on my side.";
       case 'tymeson':
       default:
         return "Take your time. Choose carefully. There is definitely a right answer.";

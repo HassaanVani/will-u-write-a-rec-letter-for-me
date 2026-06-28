@@ -6,8 +6,8 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const sourceDir = path.join(__dirname, 'Sammy');
-const destDir = path.join(__dirname, 'public', 'sammy');
+const sourceDir = path.join(__dirname, 'Ryan');
+const destDir = path.join(__dirname, 'public', 'ryan');
 
 // Ensure destination directory exists
 if (!fs.existsSync(destDir)) {
@@ -20,7 +20,7 @@ if (!fs.existsSync(sourceDir)) {
 }
 
 const files = fs.readdirSync(sourceDir);
-console.log(`Found ${files.length} files in Sammy directory.`);
+console.log(`Found ${files.length} files in Ryan directory.`);
 
 const processedImages = [];
 
@@ -58,4 +58,4 @@ for (const file of files) {
 }
 
 console.log('\n--- Processing complete! ---');
-console.log(`Successfully prepared and compressed ${processedImages.length} images in "public/sammy/".`);
+console.log(`Successfully prepared and compressed ${processedImages.length} images in "public/ryan/".`);

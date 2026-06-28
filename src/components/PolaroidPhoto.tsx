@@ -99,7 +99,7 @@ export const PolaroidPhoto: React.FC<PolaroidPhotoProps> = ({
     >
       <div className="polaroid-img-wrapper" style={{ height: '80%' }}>
         <img
-          src={`/sammy/${imageName}`}
+          src={`/ryan/${imageName}`}
           alt={caption}
           className="polaroid-img"
           loading="lazy"
